@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เซอร์ไพรส์วาเลนไทน์ 💖</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffe6e6;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            color: #ff4d4d;
+        }
+        .heart {
+            font-size: 50px;
+            animation: float 1.5s infinite alternate;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        .hidden-message {
+            display: none;
+            font-size: 20px;
+            color: #d63384;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>สุขสันต์วันวาเลนไทน์! 💕</h1>
+        <p class="heart">❤️</p>
+        <button class="btn" onclick="showMessage()">กดเพื่อดูข้อความลับ</button>
+        <p class="hidden-message" id="message">รักคุณที่สุดเลย! 💖</p>
+    </div>
+    <script>
+        function showMessage() {
+            document.getElementById("message").style.display = "block";
+        }
+    </script>
+</body>
+</html>
