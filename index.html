@@ -10,6 +10,7 @@
             background: url('https://source.unsplash.com/1600x900/?valentine,hearts') no-repeat center center/cover;
             font-family: 'Arial', sans-serif;
             color: white;
+            overflow-x: hidden;
         }
         .container {
             margin-top: 50px;
@@ -17,6 +18,7 @@
             padding: 20px;
             border-radius: 15px;
             display: inline-block;
+            max-width: 90%;
         }
         h1 {
             color: #ff4d4d;
@@ -48,7 +50,8 @@
             margin-top: 20px;
         }
         .image-container img {
-            width: 200px;
+            width: 100%;
+            max-width: 200px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
@@ -56,7 +59,8 @@
         .choices {
             margin-top: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 20px;
         }
         .choice {
@@ -75,10 +79,30 @@
             margin-top: 10px;
         }
         .choice img {
-            width: 150px;
+            width: 100%;
+            max-width: 150px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .result-container img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+        }
+        @media (min-width: 768px) {
+            .choices {
+                flex-direction: row;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -87,21 +111,27 @@
         <h1>Happy Valentine Day Kub 💕</h1>
         <p class="heart">❤️</p>
         <div class="image-container">
-            <img src="./assets/Beam1.jpg" alt="รูปภาพความรัก">
+            <img src="./assets/img/Beam1.JPG" alt="รูปภาพความรัก">
         </div>
-        <button class="btn" onclick="showMessage()">กดเพื่อดูข้อความลับ</button>
-        <p class="hidden-message" id="message">รักคุณที่สุดเลย! 💖</p>
+        <button class="btn" onclick="showMessage()"> กดตรงนี้ๆๆก่อน </button>
+        <p class="hidden-message" id="message">เค้ารักเธอที่สุดเลยคั้บไอมุ ขอบคุณที่อยู่ข้างๆเค้า<br>ดูแลเค้าอย่างดีมาโดยตลอด ดีใจที่มีเธอมากๆ<br>ไว้เราไปกินอะไรอร่อยๆด้วยกันนะ<br>สุขสันต์วันวาเลนไทน์ค้าบบบ 💖</p>
+        <p class="choice-title">สุ่มจิ้มคั้บ เลือกได้ครั้งเดียวห้ามโกงๆ 💖</p>
+
         <div class="choices">
             <div class="choice">
-                <img src="your-choice1-image-url" alt="ตัวเลือก 1">
-                <button class="choice-btn" onclick="showAnswer(1)">ตัวเลือก 1</button>
+                <img src="./assets/img/Beam2.JPG" alt="ตัวเลือก 1">
+                <button class="choice-btn" onclick="showAnswer(1)">เลือกอันนี้</button>
             </div>
             <div class="choice">
-                <img src="your-choice2-image-url" alt="ตัวเลือก 2">
-                <button class="choice-btn" onclick="showAnswer(2)">ตัวเลือก 2</button>
+                <img src="./assets/img/Beam3.JPG" alt="ตัวเลือก 2">
+                <button class="choice-btn" onclick="showAnswer(2)">อันนี้ดีกว่า</button>
             </div>
         </div>
-        <p class="hidden-message" id="answer"></p>
+    
+        <div class="result-container" id="result">
+            <p id="answer"></p>
+            <img id="result-img" src="" alt="">
+        </div>
     </div>
 
     <script>
@@ -110,31 +140,19 @@
         }
 
         function showAnswer(choice) {
-            // ปิดการใช้งานปุ่มตัวเลือกทั้งสองปุ่ม
-            document.querySelectorAll('.choice-btn').forEach(function(button) {
-                button.disabled = true;
-            });
+            document.querySelectorAll('.choice-btn').forEach(button => button.disabled = true);
 
             let answers = [
-                { text: "เฉลยที่ 1: คุณคือความรักของฉัน 💖", img: "your-choice1-image-url" },
-                { text: "เฉลยที่ 2: อยู่กับคุณคือสิ่งที่ดีที่สุด! 💕", img: "your-choice2-image-url" }
+                { text: "ไอมุได้เลือกสถานที่เที่ยวที่อยากไปคั้บบ 💕", img: "./assets/img/Beam4.jpeg" },
+                { text: "ไอมุได้เลือกร้านบุฟเฟ่ต์หรือรูฟท็อปที่อยากไปป 💕", img: "./assets/img/Beam5.jpeg" }
             ];
-            let selectedAnswer = answers[choice - 1];  // เลือกคำตอบตามตัวเลือกที่กด
+            let selectedAnswer = answers[choice - 1];
+            
             document.getElementById("answer").textContent = selectedAnswer.text;
-
-            // แสดงรูปภาพในข้อความที่ซ่อน
-            let imgElement = document.createElement("img");
-            imgElement.src = selectedAnswer.img;
-            imgElement.alt = "รูปภาพตัวเลือก";
-            imgElement.style.width = "150px";
-            imgElement.style.height = "auto";
-            imgElement.style.borderRadius = "10px";
-            imgElement.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.3)";
-
-            // เพิ่มรูปภาพในข้อความที่ซ่อน
-            document.getElementById("answer").appendChild(imgElement);
-
-            document.getElementById("answer").style.display = "block";
+            document.getElementById("result-img").src = selectedAnswer.img;
+            document.getElementById("result-img").alt = "รูปภาพตัวเลือก";
+            
+            document.getElementById("result").style.display = "block";
         }
     </script>
 </body>
